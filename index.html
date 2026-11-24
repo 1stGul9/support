@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Support · Classical Music Vault</title>
+<meta name="description" content="Support Classical Music Vault — Ko-fi or USDT (crypto).">
+<style>
+  :root{
+    --gold:#E8C57A; --gold-soft:#d9b86a; --ink:#1a1a1a;
+    --bg0:#0e0d0b; --bg1:#17150f; --card:#fbfaf7; --muted:#6a655c;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; min-height:100vh;
+    font-family:Georgia,'Times New Roman',serif;
+    color:#f3efe6;
+    background:
+      radial-gradient(1200px 600px at 50% -10%, #2a2415 0%, transparent 60%),
+      linear-gradient(160deg,var(--bg1),var(--bg0));
+    display:flex; flex-direction:column; align-items:center;
+    padding:32px 18px 56px;
+  }
+  .logo{width:72px;height:auto;margin:6px 0 10px;opacity:.95}
+  h1{font-size:30px;margin:4px 0 2px;letter-spacing:.3px;text-align:center}
+  .tag{color:var(--gold);font-size:17px;margin:0 0 26px;text-align:center}
+  .wrap{width:100%;max-width:440px;display:flex;flex-direction:column;gap:20px}
+  .card{
+    background:var(--card); color:var(--ink);
+    border-radius:20px; padding:22px 20px 24px;
+    box-shadow:0 14px 40px rgba(0,0,0,.45);
+    text-align:center;
+  }
+  .card h2{margin:0 0 4px;font-size:22px;color:var(--ink)}
+  .sub{color:var(--muted);font-size:14px;margin:0 0 16px}
+  .qr{width:150px;height:150px;border-radius:10px;display:block;margin:0 auto 14px;
+      background:#fff;padding:6px}
+  .addr{
+    font-family:'SF Mono',Menlo,Consolas,monospace; font-size:13px;
+    word-break:break-all; background:#f0ece3; color:#222;
+    border-radius:10px; padding:11px 12px; margin:0 0 12px; line-height:1.5;
+  }
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    width:100%; border:0; cursor:pointer; font-family:inherit;
+    font-size:16px; font-weight:600; padding:13px 16px; border-radius:12px;
+    transition:transform .08s ease, background .15s ease;
+  }
+  .btn:active{transform:translateY(1px)}
+  .btn-gold{background:var(--gold);color:#241d0c}
+  .btn-gold:hover{background:var(--gold-soft)}
+  .btn-dark{background:var(--ink);color:#fdf7e8}
+  .btn-dark:hover{background:#2c2c2c}
+  .btn.copied{background:#2e9e5b;color:#fff}
+  .nets{color:var(--muted);font-size:13px;margin:12px 0 0}
+  .foot{color:#8a8372;font-size:13px;margin-top:30px;text-align:center}
+  a{color:inherit}
+</style>
+</head>
+<body>
+  <img class="logo" src="logo.png" alt="">
+  <h1>Support the Channel</h1>
+  <p class="tag">Your support keeps this music coming</p>
+
+  <div class="wrap">
+    <!-- Ko-fi -->
+    <div class="card">
+      <h2>Ko-fi</h2>
+      <p class="sub">One-time · card · no account needed</p>
+      <img class="qr" src="kofi_qr.png" alt="Ko-fi QR">
+      <a class="btn btn-gold" href="https://ko-fi.com/thankyou2" target="_blank" rel="noopener">Open Ko-fi ↗</a>
+    </div>
+
+    <!-- USDT -->
+    <div class="card">
+      <h2>USDT (crypto)</h2>
+      <p class="sub">BNB Smart Chain (BEP20) · Polygon</p>
+      <img class="qr" src="usdt_qr.png" alt="USDT address QR">
+      <div class="addr" id="usdt">0x9eB880A2aCAE76cda4E7B185d04d2fe1aA21Be41</div>
+      <button class="btn btn-dark" id="copyBtn" data-target="usdt">Copy address</button>
+      <p class="nets">Send only USDT on BEP20 or Polygon to this address.</p>
+    </div>
+  </div>
+
+  <p class="foot">Thank you for listening · Classical Music Vault</p>
+
+<script>
+  function copyText(t){
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      return navigator.clipboard.writeText(t);
+    }
+    return new Promise(function(res,rej){
+      try{
+        var ta=document.createElement('textarea');
+        ta.value=t; ta.style.position='fixed'; ta.style.opacity='0';
+        document.body.appendChild(ta); ta.focus(); ta.select();
+        document.execCommand('copy'); document.body.removeChild(ta); res();
+      }catch(e){ rej(e); }
+    });
+  }
+  document.getElementById('copyBtn').addEventListener('click', function(){
+    var btn=this;
+    var txt=document.getElementById(btn.dataset.target).textContent.trim();
+    copyText(txt).then(function(){
+      var old=btn.textContent;
+      btn.textContent='✓ Copied!'; btn.classList.add('copied');
+      setTimeout(function(){ btn.textContent=old; btn.classList.remove('copied'); },1800);
+    }).catch(function(){
+      btn.textContent='Press & hold to copy';
+      setTimeout(function(){ btn.textContent='Copy address'; },2200);
+    });
+  });
+</script>
+</body>
+</html>
